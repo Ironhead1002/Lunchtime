@@ -10,5 +10,5 @@ urlpatterns = [
     # path('login/', loginUserPage, name='login'),
     # path('register/',RegisterView.as_view(),name='register'),
     path('menu/', createMenu, name='menu'),
-    path('getmenu/<str:pk>/', getMenu, name='getmenu'),
+    path('getmenu/', getMenu, name='getmenu'),
 ]

@@ -8,7 +8,7 @@ from .models import Profile
 from rest_framework.views import APIView
 from canteenInfo.models import CanteenInfo
 
-from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer
+from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer, ProfilegetSerializer
 
 
 # class RegisterView(generics.CreateAPIView):
@@ -57,6 +57,7 @@ def createProfile(request):
     print("Info saved")
     serializer = ProfileSerializer(profile, data=request.data)
     if serializer.is_valid():
+        print('Serializer is valid')
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors)
@@ -67,21 +68,23 @@ def retrieveProfile(request, pk):
     try:
         profile = Profile.objects.get(profile_id=pk)
         user = profile.user
-        serializer = ProfileSerializer(profile)
+        serializer = ProfilegetSerializer(profile)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except BaseException as e:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(['GET'])
+@api_view(['PUT'])
 def updateProfile(request, pk):
     try:
         profile = Profile.objects.get(profile_id=pk)
-        user = profile.user
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = ProfileSerializer(profile, request.data)
+        if serializer.is_valid():
+            print('Serializer is valid')
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
     except BaseException as e:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(e, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])

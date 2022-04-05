@@ -21,6 +21,12 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class ProfilegetSerializer(serializers.ModelSerializer):
     user = RegisterSerializer(many=False)
     class Meta:
         model = Profile
