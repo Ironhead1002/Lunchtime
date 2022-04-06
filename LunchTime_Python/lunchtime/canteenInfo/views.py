@@ -17,7 +17,7 @@ def UpdateCounter(request, pk):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-    return Response(serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -31,11 +31,11 @@ def UpdateCounterDeactivate(request, pk):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-    return Response(serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET"])
 def GetCounter(request):
     pro = CanteenInfo.objects.filter(active_or_not=True).count()
     print(pro)
-    return Response({"pro": pro})
+    return Response({"pro": pro}, status=status.HTTP_200_OK)

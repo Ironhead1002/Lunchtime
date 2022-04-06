@@ -32,11 +32,9 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('api/',include('userdetail.urls')),
-    # path('api/',include('reviews.urls')),
     path('apiinfo/',include('canteenInfo.urls')),
     path('apimenu/', include('menu.urls')),
     path('apifeed/', include('reviews.urls')),
-
     path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),

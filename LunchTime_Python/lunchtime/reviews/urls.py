@@ -1,11 +1,7 @@
-from django.urls import path, include
-from .views import ReviewView
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from .views import AddReview, GetReview
 
-router = DefaultRouter()
-# router.register('register',RegisterView,basename='register')
-
-router.register('feedback',ReviewView,basename='feedback')
 urlpatterns = [
-    path('', include(router.urls)),
+    path('feedback/', AddReview, name='feedback'),
+    path('getfeedback/', GetReview, name='getfeedback'),
 ]
